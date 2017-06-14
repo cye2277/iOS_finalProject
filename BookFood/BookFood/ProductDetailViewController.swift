@@ -58,8 +58,9 @@ class ProductDetailViewController: UIViewController {
         SwiftSpinner.show("Updating cart")
         Moltin.sharedInstance().cart.insertItem(withId: productId, quantity: 1, andModifiersOrNil: nil, success: { (response) -> Void in
             // Switch to cart view
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.switchToCartTab()
+
+            //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            //appDelegate.switchToCartTab()
             
             // Hide loading UI
             SwiftSpinner.hide()

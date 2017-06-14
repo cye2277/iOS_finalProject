@@ -10,6 +10,16 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseAuth
+import Moltin
+
+let MOLTIN_STORE_ID = "znOyx3DAVYzBXgi239tFxHnheZ77iy0qQVlLEaNtoC"
+
+let MOLTIN_LOGGING = true
+
+// RGB: 139, 98, 181
+let MOLTIN_COLOR = UIColor(red: (139.0/255.0), green: (98.0/255.0), blue: (181.0/255.0), alpha: 1.0)
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         // Override point for customization after application launch.
+        
+        // Set the window's tint color to the Moltin color
+        self.window?.tintColor = MOLTIN_COLOR
+        
+        // Initialise the Moltin SDK with our store ID.
+        Moltin.sharedInstance().setPublicId(MOLTIN_STORE_ID)
+        
+        // Do you want the Moltin SDK to log API calls? (This should probably be false in production apps...)
+        Moltin.sharedInstance().setLoggingEnabled(MOLTIN_LOGGING)
         return true
     }
 
@@ -47,6 +66,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func switchToCartTab() {
+        
+        //let tabBarController = self.window!.rootViewController as! UITabBarController
+        //let tabBarController = self.window!.rootViewController as! UITabBarController
+        //tabBarController.selectedIndex = 1
+        //let sb = UIStoryboard(name: "Main", bundle: nil)
+        //let vc = sb.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+        //vc.selectedIndex = 1
+
+        
+    }
+
 
     // MARK: - Core Data stack
 

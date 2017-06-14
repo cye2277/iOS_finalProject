@@ -19,5 +19,8 @@ target 'BookFood' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod ‘Firebase/Auth’
+  
+  pod 'Moltin', :git => 'https://github.com/moltin/ios-sdk.git', :branch => 'master'
+  pod 'SDWebImage', '~>3.7'
 
 end
