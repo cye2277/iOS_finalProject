@@ -20,21 +20,25 @@ class ListOrderTableViewController: UITableViewController {
         super.viewDidLoad()
         ref = Database.database().reference().child("order")
         ref.queryOrdered(byChild: "items").observe(.childAdded, with: { (snapshot) in
+            
             let key = snapshot.key as String
-            var all_data = snapshot.value as? [String: AnyObject]
-            var firebase_naumber = all_data?.count
-            print(key)
-            
-            self.orders.insert(key, at: 0)
-            OperationQueue.main.addOperation({
-                self.tableView.reloadData()
+            self.ref.child(key).child("items").queryOrdered(byChild: "Band").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
+                var all_data = snapshot.value as? [String: AnyObject]
+                
+                print(self.orders)
+                if self.orders.contains(key)  {
+                    if let index = self.orders.index(of: key) {
+                        self.orders.remove(at: index)
+                        print(self.orders)
+                    }
+                }
+                self.orders.append(key)
+                print(key)
+                OperationQueue.main.addOperation({
+                    self.tableView.reloadData()
+                })
             })
-            
-            
         })
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
