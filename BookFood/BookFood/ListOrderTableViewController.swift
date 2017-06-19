@@ -13,17 +13,19 @@ import  FirebaseDatabase
 class ListOrderTableViewController: UITableViewController {
     var ref:DatabaseReference!
     var orders = [String]()
+    var userNames = [String]()
+    var userPhone = [String]()
     var order: String!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference().child("order")
-        ref.queryOrdered(byChild: "items").observe(.childAdded, with: { (snapshot) in
-            
+        
+        
+        ref.observe(.childAdded, with: { (snapshot) in
             let key = snapshot.key as String
             self.ref.child(key).child("items").queryOrdered(byChild: "Band").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
-                var all_data = snapshot.value as? [String: AnyObject]
                 
                 print(self.orders)
                 if self.orders.contains(key)  {
@@ -38,7 +40,31 @@ class ListOrderTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 })
             })
+            self.ref.child(key).child("user").observe(.value, with: { (snapshot) in
+                var all_data = snapshot.value as? [String: AnyObject]
+                let firebaseUser = all_data?["username"]
+                //print(firebaseUser)
+                if  firebaseUser != nil {
+                    self.userNames.append(firebaseUser as! String)
+                    print(self.userNames)
+                }
+                let firebasePhone = all_data?["userphone"]
+                
+                if  firebasePhone != nil {
+                    self.userPhone.append(firebasePhone as! String)
+                }
+                
+                
+                print(all_data)
+                OperationQueue.main.addOperation({
+                    self.tableView.reloadData()
+                })
+                
+                
+            })
         })
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,7 +88,8 @@ class ListOrderTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "oderListCell", for: indexPath) as! ListOrderTableViewCell
         cell.showOrders?.text = orders[indexPath.row]
-
+        cell.showUserName?.text = userNames[indexPath.row]
+        cell.showUsePhone?.text = userPhone[indexPath.row]
         return cell
     }
     
