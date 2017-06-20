@@ -25,7 +25,7 @@ class ListOrderTableViewController: UITableViewController {
         
         ref.observe(.childAdded, with: { (snapshot) in
             let key = snapshot.key as String
-            self.ref.child(key).child("items").queryOrdered(byChild: "Band").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
+            self.ref.child(key).child("items").queryOrdered(byChild: "Brand").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
                 
                 print(self.orders)
                 if self.orders.contains(key)  {

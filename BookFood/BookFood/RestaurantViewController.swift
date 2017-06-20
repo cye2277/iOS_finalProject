@@ -9,8 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
-class RestaurantViewController: UIViewController {
-     var ref: DatabaseReference!
+class RestaurantViewController: UIViewController{
+        var ref: DatabaseReference!
      var shop_number = 0
      var shop_name = [String]()
     

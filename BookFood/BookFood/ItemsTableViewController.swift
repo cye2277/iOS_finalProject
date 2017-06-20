@@ -28,7 +28,7 @@ class ItemsTableViewController: UITableViewController {
         print(gatOrderId)
         //self.tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: "Itemcell")
         ref = Database.database().reference().child("order")
-        ref.child(gatOrderId).child("items").queryOrdered(byChild: "Band").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
+        ref.child(gatOrderId).child("items").queryOrdered(byChild: "Brand").queryEqual(toValue: "假面騎士").observe(.childAdded, with: { (snapshot) in
             //        var all_data = snapshot.value as? [String: AnyObject]
             //        var firebase_naumber = all_data?.count
             //        print(all_data)
@@ -36,7 +36,7 @@ class ItemsTableViewController: UITableViewController {
             {
                 let productName = valueDictionary["productName"]
                 let productNumber = valueDictionary["productNumber"]
-                let Band = valueDictionary["Band"]
+                let Band = valueDictionary["Brand"]
                 let productMoney = valueDictionary["productMoney"]
                 self.posts.insert(eventStruct(productName: productName, productNumber: productNumber, Band: Band,productMoney: productMoney), at: 0)
                 print(self.posts)
